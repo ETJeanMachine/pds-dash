@@ -3,6 +3,7 @@
 </script>
 
 <div class="layout">
+  <h1>at://pds.jeanmachine.dev</h1>
   {@render children?.()}
 </div>
 
@@ -16,5 +17,6 @@
   .layout {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 </style>
