@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { PDS_URL } from '$lib/constants';
+	import { PUBLIC_PDS_URL } from '$env/static/public';
 	import type { ComAtprotoRepoDescribeRepo, ComAtprotoSyncListRepos } from '@atcute/atproto';
 
 	let repos = $state<ComAtprotoRepoDescribeRepo.$output[]>([]);
 
 	onMount(async () => {
-		let response = await fetch(`${PDS_URL}/xrpc/com.atproto.sync.listRepos`);
+		let response = await fetch(`${PUBLIC_PDS_URL}/xrpc/com.atproto.sync.listRepos`);
 		let data: ComAtprotoSyncListRepos.$output = await response.json();
 		for (let repo of data.repos) {
-			await fetch(`${PDS_URL}/xrpc/com.atproto.repo.describeRepo?repo=${repo.did}`)
+			await fetch(`${PUBLIC_PDS_URL}/xrpc/com.atproto.repo.describeRepo?repo=${repo.did}`)
 				.then((response) => response.json())
 				.then((data) => repos.push(data));
 		}
